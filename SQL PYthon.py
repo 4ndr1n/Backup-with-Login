@@ -1,14 +1,15 @@
 import mysql.connector
 import os
 from datetime import datetime
+import shutil
 
 now = datetime.now()
 date = now.strftime("%H:%M")
 
-os.environ('HOME')
 
-print()
 
+
+shutil.copytree("/Users/Andrin/Desktop", "/Volumes/Untitled 2/copy")
 
 """
 
