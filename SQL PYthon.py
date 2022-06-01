@@ -2,33 +2,40 @@ import mysql.connector
 import os
 from datetime import datetime
 import shutil
+import time
 
 now = datetime.now()
 date = now.strftime("%d-%m-%Y_%H:%M")
 user = os.getlogin()
+i = 10
 
-uinput = input("Bist du dir sicher das du ein Backup machen möchtest?")
+print("Bist du dir sicher das du ein Backup machen möchtest?")
 
 d = 1
 
 arr = []
-
+# os.stat(i).st_ctime
 while d == 1:
   uip = input("Bestätige mit [J]a oder [N]ein ")
   if uip == "J":
-    if "/Volumes/Unitled 2":
-      d = 0
-      for i in "/Volumes/Unitled 2":
-        arr.append(os.stat(i).st_ctime)
+    d = 0
+    os.chdir("/Volumes/Unitled 2")
+    if os.getcwd() == "/Volumes/Unitled 2":
+      print("woo")
+        # Neue Funktion zum Alte versionen zu löschen, wenn zu wenig Speicherplatz vorhanden ist.
     else:
       print("""Kein USB gefunden.
       
       Script wird beendet in 10 sec.""")
 
       while (i > 0):
+        print("Countdown endet in {}".format(i))
+        i-=1
         
+
   elif uip == "N":
     print("Bye")
+    d = 0
   else:
     print("Was?")
 
