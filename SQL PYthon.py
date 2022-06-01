@@ -7,7 +7,18 @@ now = datetime.now()
 date = now.strftime("%d-%m-%Y_%H:%M")
 user = os.getlogin()
 
-print("Bist du dir sicher das du ein Backup machen möchtest?")
+uinput = input("Bist du dir sicher das du ein Backup machen möchtest?")
+
+d = 1
+
+while d == 1:
+  uip = input("Bestätige mit [J]a oder [N]ein ")
+  if uip == "J":
+    if "/Volumes/Unitled 2":
+      print("hai")
+      d = 0
+      
+    else:
 
 
 
@@ -15,7 +26,6 @@ print("Bist du dir sicher das du ein Backup machen möchtest?")
 # shutil.copytree("/Users/Andrin/Desktop", "/Volumes/Untitled 2/copy")
 
 """
-
 mydb = mysql.connector.connect(
   user="root",
   password="asdfasdf",
@@ -42,4 +52,4 @@ mc.execute("SELECT * FROM dis;")
 
 for x in mc:
   print(x)
-  """
+"""
