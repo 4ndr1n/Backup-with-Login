@@ -11,14 +11,27 @@ uinput = input("Bist du dir sicher das du ein Backup machen möchtest?")
 
 d = 1
 
+arr = []
+
 while d == 1:
   uip = input("Bestätige mit [J]a oder [N]ein ")
   if uip == "J":
     if "/Volumes/Unitled 2":
-      print("hai")
       d = 0
-      
+      for i in "/Volumes/Unitled 2":
+        arr.append(os.stat(i).st_ctime)
     else:
+      print("""Kein USB gefunden.
+      
+      Script wird beendet in 10 sec.""")
+
+      while (i > 0):
+        
+  elif uip == "N":
+    print("Bye")
+  else:
+    print("Was?")
+
 
 
 
