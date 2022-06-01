@@ -1,4 +1,16 @@
 import mysql.connector
+import os
+from datetime import datetime
+
+now = datetime.now()
+date = now.strftime("%H:%M")
+
+os.environ('HOME')
+
+print()
+
+
+"""
 
 mydb = mysql.connector.connect(
   user="root",
@@ -26,3 +38,4 @@ mc.execute("SELECT * FROM dis;")
 
 for x in mc:
   print(x)
+  """
