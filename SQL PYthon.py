@@ -7,7 +7,9 @@ now = datetime.now()
 date = now.strftime("%d-%m-%Y_%H:%M")
 user = os.getlogin()
 
-print(user)
+print("Bist du dir sicher das du ein Backup machen möchtest?")
+
+
 
 
 # shutil.copytree("/Users/Andrin/Desktop", "/Volumes/Untitled 2/copy")
