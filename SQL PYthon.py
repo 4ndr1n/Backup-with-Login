@@ -34,15 +34,9 @@ while d == 1:
         print("Error: Backup wurde nicht gefunden")
 
       if os.getcwd() == "/Volumes/Untitled 2/backup":
-
-        for i in range(10):
-          print("Countdown ends in {}".format(10-i))
-          time.sleep(1)
-          print("Script wird beendet.")
-
         # Neue Funktion zum Alte versionen zu löschen, wenn zu wenig Speicherplatz vorhanden ist.
 
-        quip = input ("Willst ein Backup von allen Ordner machen? Bestätige mit Ja oder Nein")
+        quip = input ("Willst du ein Backup von allen Ordner machen? Bestätige mit Ja oder Nein: ")
 
         if quip == "Ja":
           os.mkdir("/Volumes/Untitled 2/backup/{}-AL".format(time))
@@ -60,22 +54,30 @@ while d == 1:
           print("Packup abgeschlossen")
 
         elif quip == "Nein":
-          dip = print("Willst ein Backup von Dokumente machen? Bestätige mit Ja oder Nein" )
-        elif dip == "Ja":
+          dip = input("Willst du ein Backup von Dokumente machen? Bestätige mit Ja oder Nein: ")
+
+        if dip == "Ja":
           os.mkdir("/Volumes/Untitled 2/backup/{}-DK".format(time))
 
-          shutil.copytree("/Users/{}-DK/Documents", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("/Users/{}-DK/Documents", "/Volumes/Untitled 2/copy".format(date))
 
           print("Backup abgeschlossen")
+
         elif dip == "Nein":
-          dlip = input("Willst ein Backup von Downloads machen? Bestätige mit Ja oder Nein")
+          dlip = input("Willst du ein Backup von Downloads machen? Bestätige mit Ja oder Nein: ")
 
         elif dlip == "Ja":
           os.mkdir("/Volumes/Untitled 2/backup/{}-DL".format(time))
 
-          shutil.copytree("/Users/{}-DL/Desktop", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("Users/{}/Downloads", "/Volumes/Untitled 2/backup/copy".format(user))
 
           print("Backup abgeschlossen")
+      else:
+        for i in range(10):
+          print("Countdown ends in {}".format(10-i))
+          time.sleep(1)
+          print("Script wird beendet.")
+
 
     else:
       while (i > 0):
