@@ -20,6 +20,14 @@ date = now.strftime("%d-%m-%Y_%H:%M")
 user = "Andrin"
 i = 10
 
+def scantree(path):
+    for i in x:
+        if i.is_dir(follow_symlinks=False):
+            yield from os.scandir(i.path)
+        else:
+            yield i
+    
+
 print("Bist du dir sicher das du ein Backup machen möchtest?")
 
 d = 1
@@ -67,14 +75,21 @@ while d == 1:
 
         if dip == "Ja":
           shutil.copytree("/Users/{}/Documents".format(user),  "/Volumes/Untitled 2/backup/{}-DK".format(date))
-
+          
           print("Backup abgeschlossen")
 
         elif dip == "Nein":
           dlip = input("Willst du ein Backup von Downloads machen? Bestätige mit Ja oder Nein: ")
 
         if dlip == "Ja":
-          shutil.copytree("/Users/{}}/Downloads".format(user), "/Volumes/Untitled 2/backup/{}-DL".format(date))
+          shutil.copytree("/Users/{}/Downloads".format(user), "/Volumes/Untitled 2/backup/{}-DL".format(date))
+
+          for i in scantree("/Users/Andrin/Downloads"):
+            input = "INSERT INTO Eintraege (Zeit,Dateiname) VALUES ({});"
+
+            mc.execute(input.format(date,i))
+            mydb.commit()
+
 
           print("Backup abgeschlossen")
       else:
@@ -98,7 +113,7 @@ while d == 1:
 
 
 
-input = "INSERT INTO dis VALUES ({});"
+input = "INSERT INTO Eintraege (Zeit,Dateiname) VALUES ({});"
 
 mc.execute(input.format())
 
