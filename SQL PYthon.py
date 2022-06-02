@@ -6,7 +6,7 @@ import time
 
 now = datetime.now()
 date = now.strftime("%d-%m-%Y_%H:%M")
-user = os.getlogin()
+user = "Andrin"
 i = 10
 
 print("Bist du dir sicher das du ein Backup machen möchtest?")
@@ -59,17 +59,16 @@ while d == 1:
         if dip == "Ja":
           os.mkdir("/Volumes/Untitled 2/backup/{}-DK".format(time))
 
-          shutil.copytree("/Users/{}-DK/Documents", "/Volumes/Untitled 2/copy".format(date))
+          shutil.copytree("/Users/{}/Documents".format(user), "/Volumes/Untitled 2/copy".format(date))
 
           print("Backup abgeschlossen")
 
         elif dip == "Nein":
           dlip = input("Willst du ein Backup von Downloads machen? Bestätige mit Ja oder Nein: ")
 
-        elif dlip == "Ja":
-          os.mkdir("/Volumes/Untitled 2/backup/{}-DL".format(time))
-
-          shutil.copytree("Users/{}/Downloads", "/Volumes/Untitled 2/backup/copy".format(user))
+        if dlip == "Ja":
+          print("Jee")
+          shutil.copytree("/Users/{}}/Downloads".format(user), "/Volumes/Untitled 2/backup/{}-DL".format(date))
 
           print("Backup abgeschlossen")
       else:
