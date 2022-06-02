@@ -26,8 +26,8 @@ while d == 1:
       print("""Error: Kein USB gefunden.
         
         Script wird beendet in 10 sec.""")
-    if os.getcwd() == "/Volumes/Unitled 2":
-
+        
+    if os.getcwd() == "/Volumes/Untitled 2":
       try:
         os.chdir("/Volumes/Untitled 2/backup")
       except:
@@ -35,8 +35,8 @@ while d == 1:
 
       if os.getcwd() == "/Volumes/Untitled 2/backup":
 
-        for i in 10:
-          print("Countdown ends in {}".format(i))
+        for i in range(10):
+          print("Countdown ends in {}".format(10-i))
           time.sleep(1)
           print("Script wird beendet.")
 
@@ -82,14 +82,12 @@ while d == 1:
         print("Countdown endet in {}".format(i))
         i-=1
         time.sleep(1)
-        
+      
   elif uip == "N":
     print("Bye")
     d = 0
   else:
     print("Was?")
-
-
 
 """
 mydb = mysql.connector.connect(
