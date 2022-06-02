@@ -19,20 +19,70 @@ while d == 1:
   uip = input("Bestätige mit [J]a oder [N]ein ")
   if uip == "J":
     d = 0
-    os.chdir("/Volumes/Unitled 2")
-    if os.getcwd() == "/Volumes/Unitled 2":
-      print("woo")
-        # Neue Funktion zum Alte versionen zu löschen, wenn zu wenig Speicherplatz vorhanden ist.
-    else:
-      print("""Kein USB gefunden.
-      
-      Script wird beendet in 10 sec.""")
 
+    try:
+      os.chdir("/Volumes/Untitled 2")
+    except:
+      print("""Error: Kein USB gefunden.
+        
+        Script wird beendet in 10 sec.""")
+    if os.getcwd() == "/Volumes/Unitled 2":
+
+      try:
+        os.chdir("/Volumes/Untitled 2/backup")
+      except:
+        print("Error: Backup wurde nicht gefunden")
+
+      if os.getcwd() == "/Volumes/Untitled 2/backup":
+
+        for i in 10:
+          print("Countdown ends in {}".format(i))
+          time.sleep(1)
+          print("Script wird beendet.")
+
+        # Neue Funktion zum Alte versionen zu löschen, wenn zu wenig Speicherplatz vorhanden ist.
+
+        quip = input ("Willst ein Backup von allen Ordner machen? Bestätige mit Ja oder Nein")
+
+        if quip == "Ja":
+          os.mkdir("/Volumes/Untitled 2/backup/{}-AL".format(time))
+
+          shutil.copytree("/Users/{}-AL/Desktop", "/Volumes/Untitled 2/copy".format(user))
+
+          shutil.copytree("/Users/{}-AL}/Pictures", "/Volumes/Untitled 2/copy".format(user))
+          
+          shutil.copytree("/Users/{}-AL}/Downloads", "/Volumes/Untitled 2/copy".format(user))
+
+          shutil.copytree("/Users/{}-AL}/Music", "/Volumes/Untitled 2/copy".format(user))
+
+          shutil.copytree("/Users/{}-AL/Documents", "/Volumes/Untitled 2/copy".format(user))
+
+          print("Packup abgeschlossen")
+
+        elif quip == "Nein":
+          dip = print("Willst ein Backup von Dokumente machen? Bestätige mit Ja oder Nein" )
+        elif dip == "Ja":
+          os.mkdir("/Volumes/Untitled 2/backup/{}-DK".format(time))
+
+          shutil.copytree("/Users/{}-DK/Documents", "/Volumes/Untitled 2/copy".format(user))
+
+          print("Backup abgeschlossen")
+        elif dip == "Nein":
+          dlip = input("Willst ein Backup von Downloads machen? Bestätige mit Ja oder Nein")
+
+        elif dlip == "Ja":
+          os.mkdir("/Volumes/Untitled 2/backup/{}-DL".format(time))
+
+          shutil.copytree("/Users/{}-DL/Desktop", "/Volumes/Untitled 2/copy".format(user))
+
+          print("Backup abgeschlossen")
+
+    else:
       while (i > 0):
         print("Countdown endet in {}".format(i))
         i-=1
+        time.sleep(1)
         
-
   elif uip == "N":
     print("Bye")
     d = 0
@@ -40,10 +90,6 @@ while d == 1:
     print("Was?")
 
 
-
-
-
-# shutil.copytree("/Users/Andrin/Desktop", "/Volumes/Untitled 2/copy")
 
 """
 mydb = mysql.connector.connect(
