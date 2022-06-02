@@ -39,8 +39,6 @@ while d == 1:
         quip = input ("Willst du ein Backup von allen Ordner machen? Bestätige mit Ja oder Nein: ")
 
         if quip == "Ja":
-          os.mkdir("/Volumes/Untitled 2/backup/{}-AL".format(time))
-
           shutil.copytree("/Users/{}/Desktop", "/Volumes/Untitled 2/copy".format(user))
 
           shutil.copytree("/Users/{}/Pictures".format(user), "/Volumes/Untitled 2/backup/{}".format(date))
