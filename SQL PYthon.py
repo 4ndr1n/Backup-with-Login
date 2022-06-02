@@ -41,25 +41,23 @@ while d == 1:
         if quip == "Ja":
           os.mkdir("/Volumes/Untitled 2/backup/{}-AL".format(time))
 
-          shutil.copytree("/Users/{}-AL/Desktop", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("/Users/{}/Desktop", "/Volumes/Untitled 2/copy".format(user))
 
-          shutil.copytree("/Users/{}-AL}/Pictures", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("/Users/{}/Pictures".format(user), "/Volumes/Untitled 2/backup/{}".format(date))
           
-          shutil.copytree("/Users/{}-AL}/Downloads", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("/Users/{}/Downloads".format(user), "/Volumes/Untitled 2/backup/{}".format(date))
 
-          shutil.copytree("/Users/{}-AL}/Music", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("/Users/{}/Music".format(user), "/Volumes/Untitled 2/backup/{}".format(date))
 
-          shutil.copytree("/Users/{}-AL/Documents", "/Volumes/Untitled 2/copy".format(user))
+          shutil.copytree("/Users/{}/Documents".format(user), "/Volumes/Untitled 2/backup/{}".format(date))
 
-          print("Packup abgeschlossen")
+          print("Backup abgeschlossen")
 
         elif quip == "Nein":
           dip = input("Willst du ein Backup von Dokumente machen? Bestätige mit Ja oder Nein: ")
 
         if dip == "Ja":
-          os.mkdir("/Volumes/Untitled 2/backup/{}-DK".format(time))
-
-          shutil.copytree("/Users/{}/Documents".format(user), "/Volumes/Untitled 2/copy".format(date))
+          shutil.copytree("/Users/{}/Documents".format(user),  "/Volumes/Untitled 2/backup/{}-DK".format(date))
 
           print("Backup abgeschlossen")
 
@@ -67,7 +65,6 @@ while d == 1:
           dlip = input("Willst du ein Backup von Downloads machen? Bestätige mit Ja oder Nein: ")
 
         if dlip == "Ja":
-          print("Jee")
           shutil.copytree("/Users/{}}/Downloads".format(user), "/Volumes/Untitled 2/backup/{}-DL".format(date))
 
           print("Backup abgeschlossen")
