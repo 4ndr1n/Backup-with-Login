@@ -12,16 +12,19 @@ mydb = mysql.connector.connect(
   database="Schulprojekt"
 ) 
 
-# Alias for the cursor for efficiency
-mc = mydb.cursor()
-
-mc.execute("USE Schulprojekt;")
-
 # Vars
 now = datetime.now()
 date = now.strftime("%d-%m-%Y_%H:%M")
 user = "Andrin"
 e = 1
+
+
+
+# Alias for the cursor for efficiency
+mc = mydb.cursor()
+
+mc.execute("USE Schulprojekt;")
+
 
 # Methods
 # returns all the filenames in a specified path
