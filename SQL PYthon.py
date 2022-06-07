@@ -161,3 +161,17 @@ while e == 1:
     backup()
   elif wuip == "d":
     d = 0
+
+import os, sys, time
+from venv import create
+
+folder = "/media/vmadmin/BACKUP/Backup"
+listOfFiles = ""
+
+for root, dirs, files in os.walk(folder):
+    for list in files:
+        list=os.path.join(root,list) # joining root and the file name for full path
+        file_size = os.path.getsize(list)/float(1<<10)
+        createDate = time.ctime(os.path.getctime(list))
+        listOfFiles = "{} Grösse: {} KB, Backup date:{}".format(list, file_size,createDate)
+        print(listOfFiles)
