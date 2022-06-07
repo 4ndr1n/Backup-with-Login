@@ -37,7 +37,7 @@ def scantree(path):
 
 # Copy all specified directories and inserts then into the database
 def copyAll():
-  shutil.copytree("/Users/{}/Desktop", "/Volumes/Untitled 2/copy".format(user))
+  shutil.copytree("/Users/{}/Desktop".format(user), "/Volumes/Untitled 2/backup".format(date))
 
   shutil.copytree("/Users/{}/Pictures".format(user), "/Volumes/Untitled 2/backup/{}".format(date))
 
