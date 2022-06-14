@@ -72,7 +72,6 @@ class Login():
                 print("Möchtest du ein Backup machen oder durchsuchen?")
                 uip = input("Bestätige mit [B]ackup oder [d]urchsuchen: ")
                 if uip == "B":
-                    d = 0
                     if path.exists("/media/vmadmin/BACKUP"):
                         e = 1
                         while e == 1:
@@ -176,6 +175,7 @@ class Login():
                             for x in cs:
                                 print(x)
                             y = 0
+                            d = 1
                         
                         elif uip5 == "F":
                             usrfile_name = input("Gebe ein Filename oder Pfad ein: ")
@@ -186,6 +186,7 @@ class Login():
                             for x1 in cs:
                                 print(x1)
                             y = 0
+                            d = 1
                         
                         elif uip5 == "B":
                             print("Welches der Drei Backup möchtest du Durchsuchen?")
@@ -201,10 +202,12 @@ class Login():
                                             print(name12, "Anzahl Files", count,)
                                             j = 0
                                             y = 0
+                                            d = 1
                                     else:
                                         print("Keine Backups von Alles vorhanden!")
                                         j = 0
                                         y = 0
+                                        d = 0
                                 elif uip6 == "D":
                                     if glob.glob("/media/vmadmin/BACKUP/Backup/*-DK"):
                                         for name12 in glob.glob("/media/vmadmin/BACKUP/Backup/*-DK"):
@@ -214,10 +217,12 @@ class Login():
                                             print(name12, "Anzahl Files", count,)
                                             j = 0
                                             y = 0
+                                            d = 1
                                     else:
                                         print("Keine Backups von Dokumente vorhanden!")
                                         j = 0
                                         y = 0
+                                        d = 1
 
                                 elif uip6 == "Do":
                                     if glob.glob("/media/vmadmin/BACKUP/Backup/*-DL"):
@@ -228,12 +233,12 @@ class Login():
                                             print(name12, "Anzahl Files", count,)
                                             j = 0
                                             y = 0
-                                            sys.exit()
+                                            d = 1
                                     else:
                                         print("Keine Backups von Downloads vorhanden!")
                                         j = 0
                                         y = 0
-                    d=0
+                                        d = 0
         else:
             showinfo("Falsche Eingaben","Bitte gebe dein Passwrod und Username ein!")
 
