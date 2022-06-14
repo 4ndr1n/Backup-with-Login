@@ -69,8 +69,8 @@ class Login():
             self.root.destroy()
             d = 1
             while d == 1:
-                print("Möchtest du ein Backup machen oder durchsuchen?")
-                uip = input("Bestätige mit [B]ackup oder [d]urchsuchen: ")
+                print("Möchtest du ein Backup machen oder durchsuchen oder exit?")
+                uip = input("Bestätige mit [B]ackup oder [d]urchsuchen oder [E]: ")
                 if uip == "B":
                     if path.exists("/media/vmadmin/BACKUP"):
                         e = 1
@@ -239,6 +239,9 @@ class Login():
                                         j = 0
                                         y = 0
                                         d = 0
+                elif uip == "E":
+                    d = 0
+
         else:
             showinfo("Falsche Eingaben","Bitte gebe dein Passwrod und Username ein!")
 
