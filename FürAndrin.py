@@ -67,17 +67,17 @@ class Login():
         self.entry_password.delete(0, END)
         if result:
             self.root.destroy()
-            print("Möchtest du ein Backup machen oder durchsuchen?")
             d = 1
             while d == 1:
+                print("Möchtest du ein Backup machen oder durchsuchen?")
                 uip = input("Bestätige mit [B]ackup oder [d]urchsuchen: ")
                 if uip == "B":
                     d = 0
                     if path.exists("/media/vmadmin/BACKUP"):
-                        print("Willst du ein Backup von Alles machen?")
-                        uip2 = input("Bestätige mit [J]a oder [N]ein: ")
                         e = 1
                         while e == 1:
+                            print("Willst du ein Backup von Alles machen?")
+                            uip2 = input("Bestätige mit [J]a oder [N]ein: ")
                             if uip2 == "J":
                                 shutil.copytree("/home/vmadmin/Videos", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL')
                                 shutil.copytree("/home/vmadmin/Bilder", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL/Bilder')
@@ -92,20 +92,19 @@ class Login():
                                         float_size = os.path.getsize(list)/float(1<<10)
                                         file_size = str(float_size)
                                         file_size1 = "\""+ file_size +"\""
-
                                         createDate = time.ctime(os.path.getctime(list))
                                         createDate1 = "\""+ createDate +"\""
                                         savequery1 = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(list1, file_size1, createDate1)
                                         cs.execute(savequery1)
                                         mydb.commit()
                                 print("Backup abgeschlossen")
-
                                 e = 0
+                                d = 1
                             elif uip2 == "N":
-                                print("Willst du ein Backup von Dokumente machen?")
-                                uip3 = input("Bestätige mit [J]a oder [N]ein ")
                                 f = 1
                                 while f == 1:
+                                    print("Willst du ein Backup von Dokumente machen?")
+                                    uip3 = input("Bestätige mit [J]a oder [N]ein ")
                                     if uip3 == "J":
                                         shutil.copytree("/home/vmadmin/Dokumente", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-DK')
                                         backup_dir= "/media/vmadmin/BACKUP/Backup/"
@@ -126,16 +125,13 @@ class Login():
                                         print("Backup abgeschlossen")
                                         f = 0
                                         e = 0
+                                        d = 1
                                     elif uip3 == "N":
-                                        print("Willst du ein Backup von Downloads machen")
-                                        uip4 = input("Bestätige mit [J]a oder [N]ein ")
                                         g = 1
                                         while g == 1:
+                                            print("Willst du ein Backup von Downloads machen")
+                                            uip4 = input("Bestätige mit [J]a oder [N]ein ")
                                             if uip4 == "J":
-                                                g = 0
-                                                f = 0
-                                                e = 0
-                                                d = 0
                                                 shutil.copytree("/home/vmadmin/Downloads", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-DL')
                                                 backup_dir= "/media/vmadmin/BACKUP/Backup/"
                                                 newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
@@ -153,6 +149,10 @@ class Login():
                                                         cs.execute(savequery1)
                                                         mydb.commit()
                                                 print("Backup abgeschlossen")
+                                                g = 0
+                                                f = 0
+                                                e = 0
+                                                d = 1
                                             elif uip4 == "N":
                                                 print("bye")
                                                 g = 0
