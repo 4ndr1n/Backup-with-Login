@@ -167,7 +167,7 @@ class Login():
                         print("USB stick nicht richtig eingesteckt oder das Backup Ordner ist nicht vorhanden!")
                         d = 0
                 elif uip == "d":
-                    print("Willst du nach Datum oder Filepfad druchsuchen oder willst du wissen wie viel Files ein Backup Ordner hat")
+                    print("willst du nach Datum oder Filepfad durchsuchen oder die Anzahl files von bestimmten Backup Ordner anzeigen")
                     uip5 = input("Bestätige mit [D]atum, [F]ilepfad oder [B]ackup Ordner durchsuchen: ")
                     y = 1
                     while y == 1:
