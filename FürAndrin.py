@@ -90,7 +90,7 @@ class Login():
                                 shutil.copytree("/home/vmadmin/Downloads", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL/Downloads')
                                 backup_dir= "/media/vmadmin/BACKUP/Backup/"
                                 newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
-                                for root, files in os.walk(newest_dir ):
+                                for root, dir, files in os.walk(newest_dir ):
                                     for list in files:
                                         list=os.path.join(root,list) #root  und filename gejoint für full path
                                         list1 = "\""+ list +"\""
@@ -114,7 +114,7 @@ class Login():
                                         shutil.copytree("/home/vmadmin/Dokumente", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-DK')
                                         backup_dir= "/media/vmadmin/BACKUP/Backup/"
                                         newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
-                                        for root, files in os.walk(newest_dir ):
+                                        for root, dir, files in os.walk(newest_dir ):
                                             for list in files:
                                                 list=os.path.join(root,list) #root  und filename gejoint für full path
                                                 list1 = "\""+ list +"\""
@@ -140,7 +140,7 @@ class Login():
                                                 shutil.copytree("/home/vmadmin/Downloads", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-DL')
                                                 backup_dir= "/media/vmadmin/BACKUP/Backup/"
                                                 newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
-                                                for root, files in os.walk(newest_dir ):
+                                                for root, dir, files in os.walk(newest_dir ):
                                                     for list in files:
                                                         list=os.path.join(root,list) #root  und filename gejoint für full path
                                                         list1 = "\""+ list +"\""
