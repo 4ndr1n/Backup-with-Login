@@ -73,6 +73,12 @@ class Login():
                 uip = input("Bestätige mit [B]ackup oder [d]urchsuchen oder [E]xit: ")
                 if uip == "B":
                     if path.exists("/media/vmadmin/BACKUP"):
+                        fulldir = "/media/vmadmin/BACKUP/Backup"
+                        disk = os.statvfs(fulldir)
+                        totalAvailSpace = float(disk.f_bsize*disk.f_bfree)
+                        print("Verügbarer Speicherplatz:. %.2f GB" % (totalAvailSpace/1024/1024/1024))
+                        if totalAvailSpace < 5:
+                            shutil.rmtree(min(pathlib.Path(fulldir).glob('*/'), key=os.path.getctime))
                         e = 1
                         while e == 1:
                             print("Willst du ein Backup von Alles machen?")
