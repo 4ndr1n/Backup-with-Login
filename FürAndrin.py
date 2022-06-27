@@ -1,9 +1,9 @@
-from atexit import register
 import glob
 import os
 import os.path
 import pathlib
 import shutil
+import sys
 import time
 from datetime import datetime
 from os import path
@@ -11,7 +11,7 @@ from tkinter import *
 from tkinter.messagebox import *
 import mysql.connector
 
-#in dieser Class wird das GUI für das Login erstellt    
+
 class Login():
     def __init__(self):
         self.root = Tk()
@@ -19,7 +19,7 @@ class Login():
         self.root.title("Login")
         self.create_elements()
         self.root.mainloop()
-    
+        
     def create_elements(self):
         
         self.username = Label(self.root, text="Username:", font=('Verdana', 14, 'bold'))
@@ -62,17 +62,14 @@ class Login():
         sql = "select user, pass from user where user=%s and pass=%s"
         val = (username, userpassword)
         mycursor.execute(sql, val)
-        resultLogin = mycursor.fetchone()
+        result = mycursor.fetchone()
         self.entry_username.delete(0, END)
         self.entry_password.delete(0, END)
-        if resultLogin:
+        if result:
             self.root.destroy()
-            #die varibaleln mit den einzelenen Buchstaben wurden für die Schleifen gemacht
-            #hier fängt das Backup-Szenario an
             d = 1
             while d == 1:
                 print("Möchtest du ein Backup machen, durchsuchen oder exit?")
-                #uip bis uip3 Variabeln sind Userinput zu Fragen mit mehr als 2 Antworten
                 uip = input("Bestätige mit [B]ackup oder [d]urchsuchen oder [E]xit: ")
                 if uip == "B":
                     if path.exists("/media/vmadmin/BACKUP"):
@@ -85,10 +82,9 @@ class Login():
                         e = 1
                         while e == 1:
                             print("Willst du ein Backup von Alles machen?")
-                            #uipA, uipD, uipDL sind Userinput für Ja und nein Fragen
-                            uipA = input("Bestätige mit [J]a oder [N]ein: ")
-                            if uipA == "J":
-                                shutil.copytree("/home/vmadmin/Videos", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL/Videos')
+                            uip2 = input("Bestätige mit [J]a oder [N]ein: ")
+                            if uip2 == "J":
+                                shutil.copytree("/home/vmadmin/Videos", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL')
                                 shutil.copytree("/home/vmadmin/Bilder", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL/Bilder')
                                 shutil.copytree("/home/vmadmin/Dokumente", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL/Dokumente')
                                 shutil.copytree("/home/vmadmin/Downloads", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-AL/Downloads')
@@ -96,71 +92,72 @@ class Login():
                                 newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
                                 for root, dir, files in os.walk(newest_dir ):
                                     for list in files:
-                                        list=os.path.join(root,list) #root und filename gejoint für full path damit alle Files vom Ordner und dessen Unterordner gezeigt werden 
-                                        listSql = "\""+ list +"\""
+                                        list=os.path.join(root,list) #root  und filename gejoint für full path
+                                        list1 = "\""+ list +"\""
                                         float_size = os.path.getsize(list)/float(1<<10)
                                         file_size = str(float_size)
-                                        file_sizeSql = "\""+ file_size +"\""
+                                        file_size1 = "\""+ file_size +"\""
                                         createDate = time.ctime(os.path.getctime(list))
-                                        createDateSql = "\""+ createDate +"\""
-                                        savequeryA = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(listSql, file_sizeSql, createDateSql)
-                                        cs.execute(savequeryA)
+                                        createDate1 = "\""+ createDate +"\""
+                                        savequery1 = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(list1, file_size1, createDate1)
+                                        cs.execute(savequery1)
                                         mydb.commit()
                                 print("Backup abgeschlossen")
                                 e = 0
                                 d = 1
-                            elif uipA == "N":
+                            elif uip2 == "N":
                                 f = 1
                                 while f == 1:
                                     print("Willst du ein Backup von Dokumente machen?")
-                                    uipD = input("Bestätige mit [J]a oder [N]ein ")
-                                    if uipD == "J":
+                                    uip3 = input("Bestätige mit [J]a oder [N]ein ")
+                                    if uip3 == "J":
                                         shutil.copytree("/home/vmadmin/Dokumente", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-DK')
                                         backup_dir= "/media/vmadmin/BACKUP/Backup/"
                                         newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
                                         for root, dir, files in os.walk(newest_dir ):
                                             for list in files:
-                                                list=os.path.join(root,list) 
-                                                listSql = "\""+ list +"\""
+                                                list=os.path.join(root,list) #root  und filename gejoint für full path
+                                                list1 = "\""+ list +"\""
                                                 float_size = os.path.getsize(list)/float(1<<10)
                                                 file_size = str(float_size)
-                                                file_sizeSql = "\""+ file_size +"\""
+                                                file_size1 = "\""+ file_size +"\""
+
                                                 createDate = time.ctime(os.path.getctime(list))
-                                                createDateSql = "\""+ createDate +"\""
-                                                savequeryD = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(listSql, file_sizeSql, createDateSql)
-                                                cs.execute(savequeryD)
+                                                createDate1 = "\""+ createDate +"\""
+                                                savequery1 = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(list1, file_size1, createDate1)
+                                                cs.execute(savequery1)
                                                 mydb.commit()
                                         print("Backup abgeschlossen")
                                         f = 0
                                         e = 0
                                         d = 1
-                                    elif uipD == "N":
+                                    elif uip3 == "N":
                                         g = 1
                                         while g == 1:
                                             print("Willst du ein Backup von Downloads machen")
-                                            uipDL = input("Bestätige mit [J]a oder [N]ein ")
-                                            if uipDL == "J":
+                                            uip4 = input("Bestätige mit [J]a oder [N]ein ")
+                                            if uip4 == "J":
                                                 shutil.copytree("/home/vmadmin/Downloads", f'/media/vmadmin/BACKUP/Backup/backup-{datetime.now().strftime("%d%m%Y%H%M")}-DL')
                                                 backup_dir= "/media/vmadmin/BACKUP/Backup/"
                                                 newest_dir = max(pathlib.Path(backup_dir).glob('*/'), key=os.path.getctime)
                                                 for root, dir, files in os.walk(newest_dir ):
                                                     for list in files:
-                                                        list=os.path.join(root,list)  
-                                                        listSql = "\""+ list +"\""
+                                                        list=os.path.join(root,list) #root  und filename gejoint für full path
+                                                        list1 = "\""+ list +"\""
                                                         float_size = os.path.getsize(list)/float(1<<10)
                                                         file_size = str(float_size)
-                                                        file_sizeSql = "\""+ file_size +"\""
+                                                        file_size1 = "\""+ file_size +"\""
                                                         createDate = time.ctime(os.path.getctime(list))
-                                                        createDateSql = "\""+ createDate +"\""
-                                                        savequeryDL = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(listSql, file_sizeSql, createDateSql)
-                                                        cs.execute(savequeryDL)
+                                                        createDate1 = "\""+ createDate +"\""
+                                                        savequery1 = "INSERT into Backup (filepath, filesize, copydate) values ({}, {}, {});".format(list1, file_size1, createDate1)
+                                                        cs.execute(savequery1)
                                                         mydb.commit()
                                                 print("Backup abgeschlossen")
                                                 g = 0
                                                 f = 0
                                                 e = 0
                                                 d = 1
-                                            elif uipDL == "N":
+                                            elif uip4 == "N":
                                                 print("bye")
                                                 g = 0
                                                 f = 0
@@ -171,14 +168,14 @@ class Login():
                         d = 0
                 elif uip == "d":
                     print("willst du nach Datum oder Filepfad durchsuchen oder die Anzahl files von bestimmten Backup Ordner anzeigen")
-                    uip2 = input("Bestätige mit [D]atum, [F]ilepfad oder [B]ackup Ordner durchsuchen: ")
+                    uip5 = input("Bestätige mit [D]atum, [F]ilepfad oder [B]ackup Ordner durchsuchen: ")
                     y = 1
                     while y == 1:
-                        if uip2 == "D":
+                        if uip5 == "D":
                             usrdate = input("Gebe ein Datum ein: ")
-                            usrdateSql = "\"%"+ usrdate +"%\""
-                            savequeryDate = "Select * from Backup where copydate like {}".format(usrdateSql)
-                            cs.execute(savequeryDate)
+                            usrdate1 = "\"%"+ usrdate +"%\""
+                            savequery2 = "Select * from Backup where copydate like {}".format(usrdate1)
+                            cs.execute(savequery2)
                             mydb.commit()
                             for x in cs:
                                 print(x)
@@ -186,29 +183,29 @@ class Login():
                             d = 1
 
                         
-                        elif uip2 == "F":
+                        elif uip5 == "F":
                             usrfile_name = input("Gebe ein Filename oder Pfad ein: ")
-                            usrfile_nameSql = "\"%"+ usrfile_name +"%\""
-                            savequeryFile = "Select * from Backup where filepath like {}".format(usrfile_nameSql)
-                            cs.execute(savequeryFile)
+                            usrfile_name1 = "\"%"+ usrfile_name +"%\""
+                            savequery3 = "Select * from Backup where filepath like {}".format(usrfile_name1)
+                            cs.execute(savequery3)
                             mydb.commit()
                             for x1 in cs:
                                 print(x1)
                             y = 0
                             d = 1
                         
-                        elif uip2 == "B":
+                        elif uip5 == "B":
                             print("Welches der Drei Backup möchtest du Durchsuchen?")
-                            uip3 = input("Bestätige mit [A]lles, [D]okumente oder [Do]wnloads: ")    
+                            uip6 = input("Bestätige mit [A]lles, [D]okumente oder [Do]wnloads: ")    
                             j = 1
                             while j == 1:
-                                if uip3 == "A":
+                                if uip6 == "A":
                                     if glob.glob("/media/vmadmin/BACKUP/Backup/*-AL"):
-                                        for nameA in glob.glob("/media/vmadmin/BACKUP/Backup/*-AL"):
+                                        for name12 in glob.glob("/media/vmadmin/BACKUP/Backup/*-AL"):
                                             count = 0
-                                            for files in os.walk(nameA):
+                                            for files in os.walk(name12):
                                                 count += len(files)
-                                            print(nameA, "Anzahl Files", count,)
+                                            print(name12, "Anzahl Files", count,)
                                             j = 0
                                             y = 0
                                             d = 1
@@ -217,14 +214,14 @@ class Login():
                                         j = 0
                                         y = 0
                                         d = 0
-                                elif uip3 == "D":
+                                elif uip6 == "D":
                                     if glob.glob("/media/vmadmin/BACKUP/Backup/*-DK"):
                                         
-                                        for nameDK in glob.glob("/media/vmadmin/BACKUP/Backup/*-DK"): 
+                                        for name12 in glob.glob("/media/vmadmin/BACKUP/Backup/*-DK"):
                                             count = 0
-                                            for files in os.walk(nameDK):
+                                            for files in os.walk(name12):
                                                 count += len(files)
-                                            print(nameDK, "Anzahl Files", count,)
+                                            print(name12, "Anzahl Files", count,)
                                             j = 0
                                             y = 0
                                             d = 1
@@ -234,13 +231,13 @@ class Login():
                                         y = 0
                                         d = 1
 
-                                elif uip3 == "Do":
+                                elif uip6 == "Do":
                                     if glob.glob("/media/vmadmin/BACKUP/Backup/*-DL"):
-                                        for nameDL in glob.glob("/media/vmadmin/BACKUP/Backup/*-DL"):
+                                        for name12 in glob.glob("/media/vmadmin/BACKUP/Backup/*-DL"):
                                             count = 0
-                                            for files in os.walk(nameDL):
+                                            for files in os.walk(name12):
                                                 count += len(files)
-                                            print(nameDL, "Anzahl Files", count,)
+                                            print(name12, "Anzahl Files", count,)
                                             j = 0
                                             y = 0
                                             d = 1
@@ -256,7 +253,9 @@ class Login():
         else:
             showinfo("Opla","Falsche EInggaben, Bitte gebe die richtige Nutzerdaten ein!")
 
-#in dieser def wird das GUI für das Registrieren erstellt 
+
+
+
 class Register():
     def __init__(self):
         self.root = Tk()
@@ -316,9 +315,9 @@ class Register():
         passw1 = "\""+ passw +"\""
         sql1 = "select pass from RegistrationPass where pass = {}".format(passw1)
         mycursor.execute(sql1)
-        resultRegister = mycursor.fetchone()
+        result1 = mycursor.fetchone()
         self.entry_passw.delete(0, END)
-        if resultRegister:
+        if result1:
             mycursor.execute("select count(*) from user")
             result = mycursor.fetchone()
             old_count = result[0]
@@ -341,5 +340,6 @@ class Register():
                 showinfo("Fehler","Deine Informationen konnten nicht gespeichert werden!")
         else:
             showinfo("Fehler","Bitte gebe den richtigen Regisrationspasswort ein")   
+if __name__ == '__main__':
+    login = Login()
 
-login = Login()
